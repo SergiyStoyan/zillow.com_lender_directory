@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Filter tree file. Produced by DataSifter3.0, http://www.cliversoft.com-->
+<FilterTree>
+  <Filter type="JsonFilter" version="1.1" input_group="" definition="lenders[*]&#xA;0&#xA;False" comment="">
+    <Filter type="JsonFilter" version="1.1" input_group="0" definition="screenName&#xA;Name&#xA;True" comment="" />
+    <Filter type="JsonFilter" version="1.1" input_group="0" definition="id&#xA;Id&#xA;True" comment="" />
+  </Filter>
+</FilterTree>
