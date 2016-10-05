@@ -80,13 +80,12 @@ Developed by: www.cliversoft.com";
             InternetDateTime.CHECK_TEST_PERIOD_VALIDITY(2016, 10, 7);
 
             FileWriter.This.WriteHeader(
-                    "Name",
+                "Individual Name", 
+                    "Company Name",
+                    "City", 
+                    "State", 
                     "Site",
-                    "Address",
-                    "Office Phone",
-                    "Mobile",
-                    "Fax",
-                    "Url",
+                    "Url", 
                     "Id",
                     "Json"
                     );
@@ -171,28 +170,30 @@ Developed by: www.cliversoft.com";
             override public void PROCESSOR(BotCycle bc)
             {
                 CustomBot cb = (CustomBot)bc.Bot;
-                string url = "https://mortgageapi.zillow.com/getRegisteredLender?partnerId=RD-CZMBMCZ&fields.0=aboutMe&fields.1=address&fields.2=cellPhone&fields.3=contactLenderFormDisclaimer&fields.4=companyName&fields.5=employerScreenName&fields.6=equalHousingLogo&fields.7=faxPhone&fields.8=individualName&fields.9=languagesSpoken&fields.10=memberFDIC&fields.11=nationallyRegistered&fields.12=nmlsId&fields.13=nmlsType&fields.14=officePhone&fields.15=rating&fields.16=screenName&fields.17=stateLicenses&fields.18=stateSponsorships&fields.19=title&fields.20=totalReviews&fields.21=website&lenderRef.lenderId=" + WebUtility.UrlEncode(LenderId);
+                string url = "https://mortgageapi.zillow.com/getRegisteredLender?partnerId=RD-CZMBMCZ&fields.0=individualName&fields.1=address&fields.2=cellPhone&fields.3=contactLenderFormDisclaimer&fields.4=companyName&fields.5=employerScreenName&fields.6=equalHousingLogo&fields.7=faxPhone&fields.8=individualName&fields.9=languagesSpoken&fields.10=memberFDIC&fields.11=nationallyRegistered&fields.12=nmlsId&fields.13=nmlsType&fields.14=officePhone&fields.15=rating&fields.16=screenName&fields.17=stateLicenses&fields.18=stateSponsorships&fields.19=title&fields.20=totalReviews&fields.21=website&lenderRef.lenderId=" + WebUtility.UrlEncode(LenderId);
                 if (!cb.HR.GetPage(url))
                     throw new ProcessorException(ProcessorExceptionType.RESTORE_AS_NEW, "Could not get: " + url);
 
                 DataSifter.Capture c = CustomBot.company.Parse(cb.HR.HtmlResult);
+                
+                DataSifter.Capture cp = c.FirstOf("individualName");
+                string individual_name = cp.ValueOf("firstName") + " " + cp.ValueOf("lastName");
 
-                DataSifter.Capture cp = c.FirstOf("cellPhone");
-                string mobile = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
+                //DataSifter.Capture cp = c.FirstOf("cellPhone");
+                //string mobile = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
 
-                cp = c.FirstOf("officePhone");
-                string phone = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
+                //cp = c.FirstOf("officePhone");
+                //string phone = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
 
-                cp = c.FirstOf("faxPhone");
-                string fax = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
+                //cp = c.FirstOf("faxPhone");
+                //string fax = "(" + cp.ValueOf("areaCode") + ") " + cp.ValueOf("prefix") + "-" + cp.ValueOf("number");
 
                 FileWriter.This.PrepareAndWriteLineWithHeader(
-                    "Name", c.ValueOf("companyName"),
+                    "Individual Name", individual_name,
+                    "Company Name", c.ValueOf("companyName"),
+                    "City", c.ValueOf("city"),
+                    "State", c.ValueOf("stateAbbreviation"),
                     "Site", c.ValueOf("website"),
-                    "Address", c.ValueOf("address1") + c.ValueOf("address2") + c.ValueOf("city") + c.ValueOf("zipCode") + c.ValueOf("stateAbbreviation"),
-                    "Office Phone", phone,
-                    "Mobile", mobile,
-                    "Fax", fax,
                     "Url", "https://www.zillow.com/lender-profile/" + c.ValueOf("screenName") + "/",
                     "Id", LenderId,
                     "Json", url

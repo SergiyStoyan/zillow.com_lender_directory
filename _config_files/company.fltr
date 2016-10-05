@@ -24,6 +24,10 @@
     <Filter type="JsonFilter" version="1.1" input_group="officePhone" definition="number&#xA;number&#xA;True" comment="" />
     <Filter type="JsonFilter" version="1.1" input_group="officePhone" definition="prefix&#xA;prefix&#xA;True" comment="" />
   </Filter>
-  <Filter type="JsonFilter" version="1.1" input_group="" definition="*.website&#xA;website&#xA;False" comment="" />
+  <Filter type="JsonFilter" version="1.1" input_group="" definition="*.website&#xA;website&#xA;True" comment="" />
   <Filter type="JsonFilter" version="1.1" input_group="" definition="*.screenName&#xA;screenName&#xA;True" comment="" />
+  <Filter type="JsonFilter" version="1.1" input_group="" definition="*.individualName&#xA;individualName&#xA;True" comment="">
+    <Filter type="JsonFilter" version="1.1" input_group="individualName" definition="firstName&#xA;firstName&#xA;True" comment="" />
+    <Filter type="JsonFilter" version="1.1" input_group="individualName" definition="lastName&#xA;lastName&#xA;True" comment="" />
+  </Filter>
 </FilterTree>
