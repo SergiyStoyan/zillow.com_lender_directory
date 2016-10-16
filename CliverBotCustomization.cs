@@ -77,7 +77,7 @@ Developed by: www.cliversoft.com";
 
         new static public void SessionCreating()
         {
-            InternetDateTime.CHECK_TEST_PERIOD_VALIDITY(2016, 10, 7);
+            //InternetDateTime.CHECK_TEST_PERIOD_VALIDITY(2016, 10, 7);
 
             FileWriter.This.WriteHeader(
                 "Individual Name",
