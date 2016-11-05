@@ -79,6 +79,8 @@ Developed by: www.cliversoft.com";
         {
             //InternetDateTime.CHECK_TEST_PERIOD_VALIDITY(2016, 10, 7);
 
+            ChromeRoutines.LoadCookies2Container(HttpRoutine.CommonCookieContainer);
+
             FileWriter.This.WriteHeader(
                 "Individual Name",
                     "Company Name",
